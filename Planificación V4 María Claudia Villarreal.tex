@@ -1,0 +1,749 @@
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+codirector, % Uncomment to add a codirector to the title page
+]{charter} 
+
+
+
+
+% El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
+\titulo{Plataforma IoT para el monitoreo de un sistema de generación fotovoltaica integrado con vegetación} 
+
+% Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
+%\posgrado{Carrera de Especialización en Sistemas Embebidos} 
+\posgrado{Carrera de Especialización en Internet de las Cosas} 
+%\posgrado{Carrera de Especialización en Intelegencia Artificial}
+%\posgrado{Maestría en Sistemas Embebidos} 
+%\posgrado{Maestría en Internet de las cosas}
+% Tu nombre, se puede usar el cualquier lugar del documento con el comando \authorname
+\autor{Ing. María Claudia Villarreal Ardila} 
+
+% El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
+\director{Nombre del Director}
+\pertenenciaDirector{pertenencia} 
+% FIXME:NO IMPLEMENTADO EL CODIRECTOR ni su pertenencia
+%\codirector{John Doe} % para que aparezca en la portada se debe %descomentar la opción codirector en el documentclass
+%\pertenenciaCoDirector{FIUBA}
+
+% Nombre del cliente, quien va a aprobar los resultados del proyecto, se puede usar con el comando \clientename y \empclientename
+\cliente{Dr. Ing. German Alfonso Osma Pinto}
+\empresaCliente{SIRED UIS}
+
+% Nombre y pertenencia de los jurados, se pueden usar el cualquier lugar del documento con el comando \jurunoname, \jurdosname y \jurtresname y \perteunoname, \pertedosname y \pertetresname.
+\juradoUno{Nombre y Apellido (1)}
+\pertenenciaJurUno{pertenencia (1)} 
+\juradoDos{Nombre y Apellido (2)}
+\pertenenciaJurDos{pertenencia (2)}
+\juradoTres{Nombre y Apellido (3)}
+\pertenenciaJurTres{pertenencia (3)}
+ 
+\fechaINICIO{27/10/2023}		%Fecha de inicio de la cursada de GdP \fechaInicioName
+\fechaFINALPlan{5/12/2023} 	%Fecha de final de cursada de GdP
+\fechaFINALTrabajo{XX/07/2024}	%Fecha de defensa pública del trabajo final
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\pagebreak
+
+
+\thispagestyle{empty}
+{\setlength{\parskip}{0pt}
+\tableofcontents{}
+}
+\pagebreak
+
+
+\section*{Registros de cambios}
+\label{sec:registro}
+
+
+\begin{table}[ht]
+\label{tab:registro}
+\centering
+\begin{tabularx}{\linewidth}{@{}|c|X|c|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \
+
+0      & Creación del documento                                 &\fechaInicioName \\ \hline
+1      & Se completa hasta el punto 5 inclusive                 & 31/10/2023 \\ \hline
+2      & Se completa hasta el punto 7 inclusive y se realizan correcciones & 9/11/2023\\ \hline
+3      & Se completa hasta el punto 12 inclusive y se realizan correcciones & 14/11/2023\\ \hline 
+3      & Se completa hasta el punto 15 inclusive y se realizan correcciones & 22/11/2023\\ \hline  
+%         Se puede agregar algo más \newline
+%		  En distintas líneas \newline
+%		  Así                                                    & 31/10/2023\\ \hline
+%3      & Se completa hasta el punto 11 inclusive                & dd/mm/aaaa \\ \hline
+%4      & Se completa el plan	                                 & dd/mm/aaaa \\ \hline
+\end{tabularx}
+\end{table}
+
+\pagebreak
+
+
+
+\section*{Acta de constitución del proyecto}
+\label{sec:acta}
+
+\begin{flushright}
+Buenos Aires, \fechaInicioName
+\end{flushright}
+
+\vspace{2cm}
+
+Por medio de la presente se acuerda con la \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'', consistirá esencialmente en la implementación de un conjunto de herramientas hardware y software que permitan monitorizar de forma remota el comportamiento eléctrico del edificio en el cual se encuentra instalado el sistema GRIV, incluyendo el desarrollo de una aplicación WEB para la visualización y análisis de los datos obtenidos a partir de medidores avanzados y otros sensores instalados, y tendrá un presupuesto preliminar estimado de 650 h de trabajo y 10423.75 USD, con fecha de inicio \fechaInicioName\hspace{1px} y fecha de presentación pública \fechaFinalName.
+
+Se adjunta a esta acta la planificación inicial.
+
+\vfill
+
+% Esta parte se construye sola con la información que hayan cargado en el preámbulo del documento y no debe modificarla
+\begin{table}[ht]
+\centering
+\begin{tabular}{ccc}
+\begin{tabular}[c]{@{}c@{}}Dr. Ing. Ariel Lutenberg \\ Director posgrado FIUBA\end{tabular} & \hspace{2cm} & \begin{tabular}[c]{@{}c@{}}\clientename \\ \empclientename \end{tabular} \vspace{2.5cm} \\ 
+\multicolumn{3}{c}{\begin{tabular}[c]{@{}c@{}} \supname \\ Director del Trabajo Final\end{tabular}} \vspace{2.5cm} \\
+%\begin{tabular}[c]{@{}c@{}}\jurunoname \\ Jurado del Trabajo Final\end{tabular}     &  & \begin{tabular}[c]{@{}c@{}}\jurdosname\\ Jurado del Trabajo Final\end{tabular}  \vspace{2.5cm}  \\
+%\multicolumn{3}{c}{\begin{tabular}[c]{@{}c@{}} \jurtresname\\ Jurado del Trabajo Final\end{tabular}} \vspace{.5cm}                                                                     
+\end{tabular}
+\end{table}
+
+
+
+
+\section{1. Descripción técnica-conceptual del proyecto a realizar}
+\label{sec:descripcion}
+
+La Universidad Industrial de Santander (UIS) es una institución de educación superior de carácter público, su sede principal se ubica en la ciudad de Bucaramanga, Colombia.
+En la terraza superior del edificio de ingeniería eléctrica del mencionado claustro, se instaló un sistema GRIPV (Green Building Integrated Photovoltaics), que consiste en la integración de techos verdes y sistemas FV (fotovoltaicos), dos tecnologías que contribuyen al desarrollo sostenible y cuya combinación tiene varios beneficios tanto en la generación de energía como en el mejoramiento de factores medioambientales.
+
+El sistema fotovoltaico está conformado por: paneles FV, micro-inversores integrados a la red del edificio y un conjunto de medidores y sensores para la monitorización para variables eléctricas y ambientales. Además de ser una alternativa de generación energética, el sistema GRIPV ha sido utilizado con fines académicos, en el marco diferentes de proyectos de investigación, varios de los cuales fueron financiados por Colciencias; el Departamento Administrativo de Ciencia, Tecnología e Innovación.
+
+El Semillero de Investigación en Recursos Energéticos Distribuidos (SIRED), adscrito a la Escuela de Ingeniería Eléctrica, Electrónica y de Telecomunicaciones de la UIS, es uno de los principales interesados en el estudio del Sistema GRIPV para el desarrollo de proyectos de investigación en torno a la sostenibilidad energética en edificaciones, una de las mayores dificultades que se presenta es la adquisición e integración de los datos,  puesto que debido a la cantidad y a la diversidad de variables, es necesario emplear varios equipos de medición con dinámicas de operación propias.
+
+Para el estudio del comportamiento eléctrico del sistema, actualmente se encuentran instalados 7 medidores especializados de 3 tipos, Acuvim, AcuRev, y EV300, todos de la empresa Acuenergy. Los equipos mencionados pueden configurarse para almacenar datos en memoria que deben ser descargados mediante un software que es diferente para cada tipo,  este proceso además implica el acceso físico a los equipos.
+
+Para facilitar el acceso a la información, en 2019 se desarrolló un sistema de adquisición de datos que consiste en un programa en Java que automatiza la consulta de los parámetros de interés mediante  protocolo Modbus, la rutina debe ejecutarse en cada uno de los puertos de comunicación, para esto se usaron placas Raspberry Pi conectadas a internet mediante Ethernet, permitiendo el acceso la información mediante un software de administración remota instalado en cada placa.
+
+Esta solución elimina la necesidad de acceder físicamente a los equipos, sin embargo requiere que el usuario esté capacitado y conozca contraseñas de acceso que no limitan capacidades de escritura, haciéndolo altamente susceptible a daños o cambios no deseados.
+
+Mediante el desarrollo de este proyecto, se busca generar una base de datos que alimente una aplicación Web para la visualización y análisis de las variables alrededor del sistema GRIPV, esto permitiría la centralización de la información obtenida del total los medidores avanzados y el acceso remoto a esta.
+
+La figura  \ref{fig:diagBloques} presenta el diagrama en bloques del sistema. 
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.8\textwidth]{./Figuras/diagBloques.png}
+\caption{Diagrama en bloques del sistema.}
+\label{fig:diagBloques}
+\end{figure}
+
+\vspace{25px}
+
+
+
+\section{2. Identificación y análisis de los interesados}
+\label{sec:interesados}
+
+% este comando se debe borrar para la entrega, junto con la contraparte \end{consigna}{red} 
+ 
+
+
+\begin{table}[ht]
+%\caption{Identificación de los interesados}
+%\label{tab:interesados}
+\begin{tabularx}{\linewidth}{@{}|l|X|X|l|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Rol           & Nombre y Apellido & Organización 	& Puesto 	\\ \hline
+Cliente       & \clientename      &\empclientename	&  Director SIRED \\ \hline
+Responsable   & \authorname       & FIUBA        	& Alumno 	\\ \hline
+Colaboradores & Ing. Darío Alejandro Riaño         & Escuela de ingeniería de Sistemas UIS   &  Profesor	\\ \hline
+Orientador    & \supname	      & \pertesupname 	& Director Trabajo final \\ \hline
+%Equipo        & miembro1 \newline 
+%				miembro2          &           --   	&     --   	\\ \hline
+%Opositores    &       --          &           --   	&     --  	\\ \hline
+Usuario final &   Ing. Liliana Patricia Ortega Díaz &  SIRED  &    Estudiante de maestría  	\\ \hline
+Usuario final &   MSc. Ing. Alejandra Martínez Peñaloza    &   SIRED    &   Candidata a doctora en ingeniería	\\ \hline
+Usuario final &  Miembros del SIRED   &   SIRED    &   --	\\ \hline
+\end{tabularx}
+\end{table}
+
+
+ 
+%Por ejemplo:
+%\begin{itemize}
+%	\item Auspiciante: es riguroso y exigente con la rendición de gastos. Tener mucho cuidado con %esto.
+%	\item Equipo: Juan Perez, suele pedir licencia porque tiene un familiar con una enfermedad. %Planificar considerando esto.
+%	\item Orientador: María Gómez va a poder ayudar mucho con la definición de los requerimientos.
+%\end{itemize}
+
+ % este comando se debe borrar para la entrega, junto con la contraparte \begin{consigna}{red}
+
+%Por ejemplo:
+\begin{itemize}
+	\item Cliente: el Dr. German Alfonso Osma Pinto es el líder del SIRED, por lo tanto es quien determina la destinación de recursos técnicos, materiales y humanos que están a disposición. Tiene la potestad de hacer propuestas y tomar decisiones con respecto al funcionamiento del sistema a implementar.
+	
+	\item Colaborador: Darío Alejandro Riaño es ingeniero de sistemas y ha apoyado la elaboración proyectos de investigación en torno al sistema GRIPV brindando soporte desde su área, específicamente en el desarrollo de una rutina en Java para la lectura de variables de interés en medidores modbus.
+	
+	\item Usuarios finales: todos los miembros del semillero de investigación son potenciales usuarios finales, sin embargo se resaltan las ingenieras Alejandra Martínez Peñaloza y Liliana Patricia Ortega Díaz, ya que actualmente se encuentran realizando trabajos de investigación y se ven obligadas acceder físicamente a los equipos para realizar descargas de datos. Las  mencionadas ingenieras además comparten el rol de usuarios finales con el de colaboradoras, puesto que son quienes me brindan acompañamiento para el ingreso a zonas restringidas, como los cuartos técnicos en los que se instalaron los medidores o los microordenadores y quienes proveen información de interés para el desarrollo del proyecto.
+	
+%	\item Equipo: Juan Perez, suele pedir licencia porque tiene un familiar con una enfermedad. %Planificar considerando esto.
+%	\item Orientador: María Gómez va a poder ayudar mucho con la definición de los requerimientos.
+\end{itemize}
+
+\section{3. Propósito del proyecto}
+\label{sec:proposito}
+
+
+El propósito de este proyecto es implementar una plataforma de servicios IoT para el monitoreo del sistema de generación fotovoltaica integrado con techo verde  (GRIPV) ubicado en la terraza superior del edificio de ingeniería eléctrica de la Universidad Industrial de Santander, logrando la centralización de la información y facilitando el acceso a esta mediante el desarrollo de una aplicación WEB para la visualización y análisis de los datos obtenidos a partir de medidores avanzados y otros sensores instalados. 
+
+
+\section{4. Alcance del proyecto}
+\label{sec:alcance}
+
+
+El presente proyecto incluye la generación de una base de datos para el almacenamiento de la información adquirida de 6 medidores avanzados que actualmente se encuentran instalados, no se descarta la inclusión de nuevos equipos de medición o la exclusión de alguno debido a que sea desinstalado.
+
+La base de datos debe ser alimentada automáticamente, a partir de un componente software que se desarrolló anteriormente pero que no se encuentra en funcionamiento, por lo tanto se realizarán las acciones necesarias para que este vuelva a ser funcional.
+
+Para el desarrollo del proyecto se cuenta con un servidor físico y 5 placas Raspberry Pi que fueron adquiridas previamente, por lo tanto se busca dar utilidad a estos recursos.
+
+Como resultado final, se implementará una aplicación Web con varias funcionalidades para la visualización, análisis y descarga de la información.
+
+Aunque no se descarta la inclusión de nuevos equipos de medición, el alcance del proyecto no incluye su instalación.
+
+De considerarse necesaria la adquisición de hardware o software adicional, las compras serán responsabilidad del semillero de investigación y estarán condicionadas a los recursos con que este cuente.
+
+
+
+\section{5. Supuestos del proyecto}
+\label{sec:supuestos}
+
+
+Para el desarrollo del presente proyecto se supone que:
+
+\begin{itemize}
+
+    \item Todos los componentes hardware que fueron adquiridos hace varios años y actualmente están dispuestos para desarrollar la presente investigación, funcionan correctamente.
+
+    \item Si surge la necesidad de realizar una compra indispensable para el desarrollo del proyecto, esta será realizada por el cliente.
+    
+    \item La red de internet de la UIS permitirá una conexión estable entre el servidor, las tarjetas y los demás nodos.
+    
+	\item Se cuenta con el apoyo de los miembros del grupo de investigación para acceder a espacios con ingreso restringido y a los equipos necesarios para el desarrollo del proyecto (medidores, mini ordenadores Raspberry Pi, servidor, etc.).
+	
+	\item Se cuenta con el apoyo del ingeniero Alejandro Riaño, quien desarrolló la rutina de adquisición de datos, para acceder a los códigos y para el entendimientos de estos.
+	
+\end{itemize}
+
+
+\section{6. Requerimientos}
+\label{sec:requerimientos}
+
+
+Los requerimientos del presente proyecto se presentan a continuación.
+
+\begin{enumerate}
+	\item Requerimientos del sistema de captura de datos:
+		\begin{enumerate}
+			\item Está conformado por los medidores especializados y un conjunto de micro ordenadores Raspberry Pi en las cuales se debe instalar una rutina en Java previamente desarrollada que permite realizar lecturas mediante lenguaje Modbus.
+			\item La rutina deben lanzarse para cada uno de los equipos de medición para que realice lecturas en intervalos de tiempo determinadas por el cliente, actualmente se propone que este sea 10 minutos.
+			\item Las variables solicitadas mediante Modbus serán determinadas por el cliente y podrán ser diferentes para cada equipo.
+		\end{enumerate}
+	\item Requerimientos del servidor:
+		\begin{enumerate}
+			\item El almacenamiento y procesamiento de la información será soportado por un servidor HPE ProLiant con 32 GB de RAM instalado en el edificio en el que se encuentra el sistema GRIPV.
+			\item Las lecturas deben almacenarse en la base de datos durante un tiempo no inferior a un año siempre y cuando el intervalo entre toma de medidas no disminuya al punto de sobrepasar la capacidad de almacenamiento del equipo. 
+			\end{enumerate}
+	\item Requerimiento de la aplicación WEB:
+	\begin{enumerate}
+			\item Debe permitir la visualización y descarga de los datos almacenados.
+			\item Debe crear alertas cuando se genere un error de funcionamiento del sistema.			
+			\end{enumerate}
+
+\end{enumerate}
+
+
+
+\section{7. Historias de usuarios (\textit{Product backlog})}
+\label{sec:backlog}
+
+
+Los criterios para calcular los story points fueron estimados a partir de la secuencia de Fibonacci y son los siguientes:
+
+\begin{enumerate}
+
+\item Cantidad de trabajo a realizar.
+\begin{itemize}
+       \item Bajo → peso 1
+       \item Medio → peso 5
+       \item Alto → peso 8
+       \end{itemize}
+\item Complejidad del trabajo a realizar.
+\begin{itemize}
+       \item Bajo → peso 1
+       \item Medio → peso 3
+       \item Alto → peso 8
+       \end{itemize}
+\item Riesgo o incertidumbre del trabajo a realizar.
+\begin{itemize}
+       \item Bajo → peso 1
+       \item Medio → peso 5
+       \item Alto → peso 13
+       \end{itemize}
+\end{enumerate}
+
+
+Para calcular el Story point se realiza la suma del peso de cada uno de los criterios y se aproxima al siguiente número de la sucesión de Fibonacci.
+
+
+
+\begin{itemize}
+
+\item Como cliente quiero que los intervalos para la toma de datos puedan ser cambiados para que pueda adaptarse las necesidades de la investigación que se esté desarrollando en el momento.
+
+\begin{itemize}
+       \item Cantidad de trabajo a realizar: bajo (1)
+       \item Complejidad: bajo (1)
+       \item Riesgo o incertidumbre: medio (5)
+\end{itemize}
+Story point: 8
+
+
+\item Como cliente quiero que el sistema permita la incorporación de nuevos equipos para incluir más medidores si llega a ser necesario.
+
+\begin{itemize}
+       \item Cantidad de trabajo a realizar: medio (5)
+       \item Complejidad: bajo (1)
+       \item Riesgo o incertidumbre: medio (5)
+\end{itemize}
+Story point: 13
+
+\item Como usuario quiero descargar mediciones desde Internet para no tener que acceder físicamente a los equipos.
+
+\begin{itemize}
+       \item Cantidad de trabajo a realizar: medio (5)
+       \item Complejidad: medio (3)
+       \item Riesgo o incertidumbre: medio (5)
+\end{itemize}
+Story point: 13
+
+
+\item Como usuario quiero acceder a los datos de todos los equipos desde la misma plataforma para no tener que utilizar diferentes softwares. 
+
+\begin{itemize}
+       \item Cantidad de trabajo a realizar: alto (8)
+       \item Complejidad: medio (3)
+       \item Riesgo o incertidumbre: medio (5)
+\end{itemize}
+Story point: 21
+
+\end{itemize}
+
+\section{8. Entregables principales del proyecto}
+\label{sec:entregables}
+
+
+
+Los entregables del proyecto son:
+
+\begin{itemize}
+	\item Plan de trabajo final.
+	\item Manual de uso para lanzamiento de la rutina de lectura de variables.
+	\item Esquemático del sistema de adquisición de datos.
+	\item Manual de usuario para realizar consultas en la base de datos.
+	\item Video explicativo del funcionamiento de la aplicación WEB.
+	\item Memoria técnica.
+	
+\end{itemize}
+
+
+\section{9. Desglose del trabajo en tareas}
+\label{sec:wbs}
+
+
+
+\begin{enumerate}
+
+\item Actividades preliminares. (50 h)
+	\begin{enumerate}
+	\item Indagación sobre componentes hardware y software del sistema. (3 h)
+	\item Reuniones informativas con el cliente y colaboradores. (3 h)
+	\item Definición de requerimientos y alcances. (4 h)
+	\item Elaboración de la planificación del proyecto. (40 h)
+	\end{enumerate}
+\item Implementación del sistema de captura de datos. (130 h)
+	\begin{enumerate}
+	\item Diagnóstico de funcionamiento de componentes hardware y conexiones entre estos. (20 h)
+	\item Subsanación de errores de comunicación. (20 h) 
+	\item Diagnóstico de funcionamiento de la rutina de adquisición de datos. (20 h)
+	\item Subsanación de errores de la rutina de adquisición de datos. (20 h)
+	\item Pruebas funcionales del sistema de captura de datos . (10 h)
+	\item Corrección de errores. (20 h)
+	\item Elaboración del manual de uso para lanzamiento de la rutina de lectura de variables. (20 h)
+	\end{enumerate}
+\item Implementación del servidor. (170 h)
+	\begin{enumerate}
+	\item Configuración del servidor. (20 h)
+	\item Instalación y configuración de la base de datos. (40 h)
+	\item Programación de funciones para realizar consultas a la base de datos. (30 h)
+	\item Programación de funciones de consulta a la aplicación WEB. (30 h)
+	\item Realización de pruebas. (15 h)
+	\item Corrección de errores. (15 h)
+	\item Elaboración del manual de usuario para realizar consultas en la base de datos. (20 h)
+	\end{enumerate}
+\item Implementación de la aplicación WEB. (200 h)
+	\begin{enumerate}
+	\item Elaboración de la maqueta de la página web. (25 h)
+	\item Programación de funciones para consultas a la base de datos. (30 h)
+	\item Programación de funciones para visualización y descarga de datos. (30 h)
+	\item Programación de perfiles y control de usuarios. (30 h)
+	\item Programación de creación y envío de alertas. (20 h)
+	\item Pruebas de funcionamiento. (25 h)
+	\item Corrección de errores y cambios según sugerencias del cliente. (30 h)
+	\item Elaboración de video explicativo del funcionamiento de la aplicación WEB. (10 h)
+	\end{enumerate}
+	
+\item Implementación de la plataforma IoT. (100 h)
+	\begin{enumerate}
+	\item Realización de pruebas de funcionamiento del sistema. (20 h)
+	\item Corrección de errores o realización de mejoras según criterio del cliente. (20 h)
+	\item Elaboración de memoria del proyecto. (40 h)
+	\item Preparación de la sustentación del proyecto. (20 h)
+	\end{enumerate}
+\end{enumerate}
+
+Cantidad total de horas: 650 h.
+
+%Se recomienda que no haya ninguna tarea que lleve más de 40 h. 
+
+
+
+\section{10. Diagrama de Activity On Node}
+\label{sec:AoN}
+
+
+La figura \ref{fig:AoNN} corresponde al diagrama de \textit{Activity On Node} del proyecto, las unidades de tiempo están expresadas en horas, el camino crítico está señalado en rojo y su duración es de 550 horas.
+Los colores correspondientes a cada etapa se relacionan a continuación:
+\begin{itemize}
+       \item Actividades preliminares → Rosado.
+       \item Implementación del sistema de captura de datos → Amarillo.
+       \item Implementación del servidor → Naranja.
+       \item Implementación de la aplicación WEB → Azul.
+       \item Implementación de la plataforma IoT → Morado.
+       \end{itemize}
+%La figura \ref{fig:AoN} fue elaborada con el paquete latex tikz y pueden consultar la siguiente referencia \textit{online}:
+
+%\url{https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ:_A_Tutorial_for_Beginners_(Part_3)\%E2\%80\%94Creating_Flowcharts}
+
+
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width=.9\textwidth]{./Figuras/AoNN.png}
+\caption{Diagrama de \textit{Activity on Node}.}
+\label{fig:AoNN}
+\end{figure}
+
+
+
+\section{11. Diagrama de Gantt}
+\label{sec:gantt}
+
+
+En el cuadro \ref{tab:Gantt} se presenta la tabla de Gantt indicando las fechas de inicio y terminación programadas para cada actividad.
+
+\begin{table}[ht]
+\caption{Tabla de Gantt.}
+\label{tab:Gantt}
+\begin{tabularx}{\linewidth}{@{}|l|X|X|l|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Actividad & Fecha de inicio & Fecha de fin \\ \hline
+1.1. Indagación sobre componentes hardware y software del sistema. & 1/11/2023 & 2/11/2023 \\ \hline
+1.2. Reuniones informativas con el cliente y colaboradoes. & 2/11/2023 & 4/11/2023 \\ \hline 
+1.3. Definición de requerimientos y alcances. & 4/11/2023 & 6/11/2023 \\ \hline 
+1.4. Elaboración de la planificación del proyecto. & 1/11/2023 & 8/12/2023 \\ \hline 
+2.1. Diagnóstico de funcionamiento de componentes hardware y conexiones entre estos. & 6/11/2023 & 11/11/2023 \\ \hline 
+2.2. Subsanación de errores de comunicación. & 13/11/2023 & 18/11/2023 \\ \hline
+2.3. Diagnóstico de funcionamiento de la rutina de adquisición de datos. & 20/11/2023 & 26/11/2023 \\ \hline
+2.4. Subsanación de errores de la rutina de adquisición de datos. & 28/11/2023 & 2/12/2023 \\ \hline
+2.5. Pruebas funcionales del sistema de captura de datos. & 4/12/2023 & 6/12/2023 \\ \hline
+2.6. Corrección de errores. & 7/12/2023 & 15/12/2023 \\ \hline
+2.7. Elaboración del manual de uso para lanzamiento de la rutina de lectura de variables. & 16/12/2023 & 23/12/2023 \\ \hline
+3.1. Configuración del servidor. & 18/12/2023 & 29/12/2023 \\ \hline
+3.2. Instalación y configuración de la base de datos. &	2/01/2024 & 13/01/2024 \\ \hline
+3.3. Programación de funciones para realizar consultas a la base de datos. & 15/01/2024 & 27/01/2024 \\ \hline
+3.4. Programación de funciones de consulta a la aplicación WEB. & 15/01/2024 & 9/02/2024 \\ \hline
+3.5. Realización de pruebas. & 12/02/2024 & 17/02/2024 \\ \hline
+3.6. Corrección de errores. & 19/02/2024 & 24/02/2024 \\ \hline
+3.7. Elaboración del manual de usuario para realizar consultas en la base de datos. & 26/02/2024 & 2/03/2024 \\ \hline
+4.1. Elaboración de la maqueta de la página web. & 4/03/2024 & 16/03/2024 \\ \hline
+4.2. Programación de funciones para consultas a la base de datos. & 18/03/2024 & 30/03/2024 \\ \hline
+4.3. Programación de funciones para visualización y descarga de datos. & 1/04/2024 & 13/04/2024 \\ \hline
+4.4. Programación de perfiles y control de usuarios. & 15/04/2024 & 4/05/2024 \\ \hline
+4.5. Programación de creación y envío de alertas. & 15/04/2024 & 4/05/2024 \\ \hline
+4.6. Pruebas de funcionamiento. & 6/05/2024 & 13/05/2024 \\ \hline
+4.7. Corrección de errores y cambios según sugerencias del cliente. & 14/05/2024 & 24/05/2024 \\ \hline
+4.8. Elaboración de video explicativo del funcionamiento de la aplicación WEB. & 25/05/2024 & 30/05/2024 \\ \hline
+5.1. Realización de pruebas de funcionamiento del sistema. & 25/05/2024 & 8/06/2024 \\ \hline
+5.2. Corrección de errores o realización de mejoras según criterio del cliente. & 10/06/2024 & 21/06/2024 \\ \hline
+5.3. Elaboración de memoria del proyecto. & 17/05/2024 & 5/07/2024 \\ \hline
+5.4. Elaboración de memoria del proyecto. & 23/06/2024 & 5/07/2024 \\ \hline
+
+\end{tabularx}
+\end{table}
+
+
+
+
+
+La figura  \ref{fig:DdG} presenta el diagrama de Gantt del sistema. 
+\begin{figure}[htpb]
+\centering 
+\includegraphics[width= 1\textwidth]{./Figuras/DdG.png}
+\caption{Diagrama de Gantt del sistema.}
+\label{fig:DdG}
+\end{figure}
+
+
+
+
+
+
+
+
+\section{12. Presupuesto detallado del proyecto}
+\label{sec:presupuesto}
+
+
+El presupuesto está realizado en dólares estadounidenses (USD). La cotización al día 21 de noviembre de 2023 respecto al peso argentino (ARS) es de \$355,98 para el dólar oficial.
+
+\begin{table}[htpb]
+\centering
+\begin{tabularx}{\linewidth}{@{}|X|c|r|r|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\multicolumn{4}{|c|}{\cellcolor[HTML]{C0C0C0}COSTOS DIRECTOS} \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+Descripción &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Cantidad} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Valor unitario (USD)} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Valor total (USD)} \\ \hline
+ Horas de ingeniería responsable del proyecto &
+  \multicolumn{1}{c|}{650} &
+  \multicolumn{1}{c|}{5} & 
+  \multicolumn{1}{c|}{3250} \\ \hline
+ Horas de ingeniería colaboradores &
+  \multicolumn{1}{c|}{300} &
+  \multicolumn{1}{c|}{5} &
+  \multicolumn{1}{c|}{1500} \\ \hline
+ Raspberry Pi 3 &
+  \multicolumn{1}{c|}{4} &
+  \multicolumn{1}{c|}{70} &
+  \multicolumn{1}{c|}{280} \\ \hline
+ Adaptador Raspberry 5V 3A &
+  \multicolumn{1}{c|}{4} &
+  \multicolumn{1}{c|}{6} &
+  \multicolumn{1}{c|}{24} \\ \hline 
+ Switch internet &
+  \multicolumn{1}{c|}{2} &
+  \multicolumn{1}{c|}{9} &
+  \multicolumn{1}{c|}{18} \\ \hline  
+ Adaptador R485 a USB &
+  \multicolumn{1}{c|}{7} &
+  \multicolumn{1}{c|}{41} &
+  \multicolumn{1}{c|}{287} \\ \hline  
+Servidor HPE ProLiant &
+  \multicolumn{1}{c|}{1} &
+  \multicolumn{1}{c|}{2980} &
+  \multicolumn{1}{c|}{2980} \\ \hline   
+ 
+\multicolumn{3}{|c|}{SUBTOTAL} &
+  \multicolumn{1}{c|}{8339} \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+\multicolumn{4}{|c|}{\cellcolor[HTML]{C0C0C0}COSTOS INDIRECTOS} \\ \hline
+\rowcolor[HTML]{C0C0C0} 
+Descripción &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Cantidad} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Valor unitario} &
+  \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Valor total} \\ \hline
+  
+25 \% de los costos directos &
+\multicolumn{1}{|l|}{1} 
+   & 2084.75
+   & 2084.75
+   \\ \hline
+
+\multicolumn{3}{|c|}{SUBTOTAL}  &
+  \multicolumn{1}{c|}{2084.75} \\ \hline
+\rowcolor[HTML]{C0C0C0}
+\multicolumn{3}{|c|}{TOTAL} &10423.75 
+   \\ \hline
+\end{tabularx}%
+\end{table}
+
+
+\section{13. Gestión de riesgos}
+\label{sec:riesgos}
+
+
+a) Identificación de los riesgos y estimación de sus consecuencias:
+
+Para estimar las consecuencias de los riesgos identificados, se tienen en cuenta los siguientes índices:
+
+\begin{itemize}
+
+\item Severidad (S): cuanto más severo el riesgo, mayor es el número.
+
+\item Probabilidad de ocurrencia (O): cuanto más probable es que ocurra el riesgo, más alto el número.
+
+\end{itemize}
+
+Riesgo 1: Daños en la infraestructura del sistema debido a manipulación incorrecta.
+
+\begin{itemize}
+	\item Severidad (S): la puntuación es un valor intermedio porque la severidad de este ítem dependerá de la parte de la infraestructura afectada y el tipo de daño, un daño en el servidor por ejemplo afectaría completamente el desarrollo del proyecto, uno en el cableado podría comprometer solo un medidor y ser resuelto con un pequeño ajuste. (5) \\
+	
+	\item Probabilidad de ocurrencia (O): es poco probable porque el acceso a los espacios en los que se encuentran los componentes físicos del sistema es restringido. (3)
+\end{itemize}   
+
+Riesgo 2: Error en las comunicaciones debido a la instalación de la red Modbus.
+
+\begin{itemize}
+	\item Severidad (S): para hacer lecturas de las mediciones realizadas por cada equipo, es indispensable que la red Modbus esté instalada correctamente, sin embargo, teniendo en cuenta que se tomarán datos de al menos 6 equipos diferentes, la severidad de un error de comunicación en uno de ellos es baja. (2)  \\
+	
+	\item Probabilidad de ocurrencia (O): Esta instalación fue realizada inicialmente en 2018 y ya ha sido utilizada, a pesar de que constantemente es sometida a cambios debido a la necesidad de desplazar los medidores, estos cambios son realizados con la supervisión de estudiantes de posgrado o profesionales que conocen el sistema. (3)
+\end{itemize}   
+
+Riesgo 3: Daño de los convertidores Modbus a USB.
+
+\begin{itemize}
+	\item Severidad (S): Para el funcionamiento del sistema cada medidor necesita un convertidor Modbus a USB, el daño de uno de estos impedirá la lectura de datos de su correspondiente medidor. (2)  \\
+	
+	\item Probabilidad de ocurrencia (O): Los convertidores son utilizados para la descarga convencional de datos y se ha reportado la falla de algunos de estos sin identificar la causa. (8)
+\end{itemize}   
+
+
+Riesgo 4: Dificultades asociadas al hardware para adquisición de datos:
+
+\begin{itemize}
+	\item Severidad (S): La base del presente trabajo de grado es una rutina en Java previamente desarrollada para la adquisición de datos, toda dificultad que se presente en torno a este hardware impedirá o dificultará el desarrollo del proyecto. (8)  \\
+	
+	\item Probabilidad de ocurrencia (0): La rutina ha sido probada en otras oportunidades y los errores detectados fueron corregidos. (3)
+\end{itemize}  
+
+
+Riesgo 5: Interrupciones en las tomas de datos debido a cortes eléctricos 
+
+\begin{itemize}
+	\item Severidad (S): El sistema de adquisición de datos opera según parámetros ingresados cada vez que se lanza la rutina, si se da una interrupción de la energía, no existe un mecanismo para el reinicio automático.  (5) \\
+	
+	\item Probabilidad de ocurrencia (O): Es altamente probable que se generen cortes de electricidad. (7)
+\end{itemize}  
+
+
+b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
+
+\begin{table}[htpb]
+\centering
+\begin{tabularx}{\linewidth}{@{}|X|c|c|c|c|c|c|@{}}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+Riesgo & S & O & RPN & S* & O* & RPN* \\ \hline
+Daños en la infraestructura del sistema debido a manipulación incorrecta & 5 & 3 & 15 & - & - & - \\ \hline
+Error en las comunicaciones debido a la instalación de la red Modbus & 2 & 3 & 6 & - & - & - \\ \hline
+Daño de los convertidores Modbus a USB & 2 & 8 & 16 & - & - & - \\ \hline
+Dificultades asociadas al hardware para adquisición de datos & 8 & 3 & 24 & - & - & - \\ \hline
+Interrupciones en las tomas de datos debido a cortes eléctricos & 5 & 8 & 40 & 2 & 8 & 16 \\ \hline
+\end{tabularx}%
+\end{table}
+
+Criterio adoptado: 
+
+Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores 25.
+
+Nota: los valores marcados con (*) en la tabla corresponden luego de haber aplicado la mitigación.
+
+c) Plan de mitigación de los riesgos que originalmente excedían el RPN máximo establecido:
+ 
+Riesgo 5: Durante las primeras etapas del proyecto, una vez se lance la rutina de adquisición de datos,  será necesario solicitar el apoyo de un miembro del grupo de investigación, para que revise diariamente la operación de las 3 tarjetas Raspberry Pi y en caso de que las lecturas estén detenidas, la rutina sea lanzada nuevamente. Esto se hará mediante un programa de administración remota que será instalado en cada Raspberry Pi para permitir el acceso desde otro dispositivo conectado a la red de internet de la universidad.
+En las últimas etapas, se busca que la aplicación web genere alarmas cuando se detenga la medición.
+
+  - Severidad (S): La severidad disminuye porque la toma de datos no se detendrá por mas de 24 horas. (2)
+  - Probabilidad de ocurrencia (O): La probabilidad de ocurrencia no cambia con la mitigación. (8).
+
+
+
+\section{14. Gestión de la calidad}
+\label{sec:calidad}
+
+
+\begin{enumerate}
+	\item Requerimientos del sistema de captura de datos:
+		\begin{enumerate}
+			\item Está conformado por los medidores especializados y un conjunto de micro ordenadores Raspberry Pi en los cuales se debe instalar una rutina en Java previamente desarrollada que permite realizar lecturas mediante lenguaje Modbus.
+			
+\begin{itemize}
+	\item Verificación: se realizarán pruebas de lectura por periodos superiores a una semana y se compararán los resultados con los datos almacenados en la memoria de los equipos.
+	\item Validación: se entregará informe de resultados de las pruebas realizadas
+\end{itemize}
+
+			\item La rutina deben lanzarse para cada uno de los equipos de medición para que realice lecturas en intervalos de tiempo determinadas por el cliente, actualmente se propone que este sea 10 minutos.
+			
+\begin{itemize}
+	\item Verificación: se realizarán pruebas de lectura para diferentes intervalos de tiempo
+	\item Validación: se solicitará al cliente definir el intervalo de lectura para realizar una prueba por un tiempo mas prolongado 
+\end{itemize}
+			\item Las variables solicitadas mediante Modbus serán determinadas por el cliente y podrán ser diferentes para cada equipo.
+			
+\begin{itemize}
+	\item Verificación: se hará lectura del manual del equipo y preparación del documento de entrada para solicitar las variables definidas por el cliente.
+	\item Validación: se solicitará al cliente aprobación del documento de entrada.
+\end{itemize}
+		\end{enumerate}
+	\item Requerimientos del servidor:
+		\begin{enumerate}
+			\item El almacenamiento y procesamiento de la información será soportado por un servidor HPE ProLiant con 32 GB de RAM instalado en el edificio en el que se encuentra el sistema GRIPV.
+\begin{itemize}
+\item Verificación: Se realizarán pruebas de acceso a la base de datos desde el servidor destinado para el proyecto.
+\item Validación: se entregará un manual de usuario para acceder a la base de datos desde el servidor y se le solicitará al cliente realizar el procedimiento usándolo como guía 
+\end{itemize}
+			
+			\end{enumerate}
+	\item Requerimiento de la aplicación WEB:
+	\begin{enumerate}
+			\item Debe permitir la visualización y descarga de los datos almacenados.
+\begin{itemize}
+\item Verificación: Se ingresará a la aplicación en diferentes momentos para verificar que la visualización coincida con el comportamiento esperado y se realizarán descargas de datos desde allí.
+\item Validación: Se solicitará al cliente la aprobación de la aplicación web desarrollada y se realizará video explicativo para que los interesados realicen las descargas
+ 
+\end{itemize}
+			\item Debe crear alertas cuando se genere un error de funcionamiento del sistema.
+			
+\begin{itemize}
+\item Verificación: se interrumpirá la energía y se desconectarán los convertidores Modbus-USB de los equipos para comprobar que se generen las alarmas
+\item Validación: se creará un tipo se usuario que será receptor de las alarmas, y se incluirá al cliente y a los principales interesados en este grupo.
+\end{itemize}			
+			\end{enumerate}
+
+\end{enumerate}
+
+\section{15. Procesos de cierre}    
+\label{sec:cierre}
+
+Las actividades del proceso se cierre estarán a cargo de la responsable del proyecto María Claudia Villarreal Ardila.
+
+\begin{itemize}
+	\item Se realizará entrega de instructivos y manuales de usuario y se evaluará si estos son útiles para los interesados. 
+	\item Se contrastará la ejecución del proyecto con la planificación, a fin de concluir cuales fueron las causas de posibles retrasos.
+	\item Se evaluará si se logró el alcance propuesto, en caso de no ser así se expondrán las razones.
+	\item Se realizará reunión presencial con los principales interesados y colaboradores para agradecer su participación.
+	
+	  
+\end{itemize}
+
+
+\end{document}
